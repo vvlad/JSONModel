@@ -25,6 +25,8 @@ extern BOOL isNull(id value)
     return NO;
 }
 
+NSString * dateFormat;
+
 @implementation JSONValueTransformer
 
 -(id)init
@@ -163,8 +165,7 @@ extern BOOL isNull(id value)
 -(NSDate*)NSDateFromNSString:(NSString*)string
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    string = [string stringByReplacingOccurrencesOfString:@":" withString:@""]; // this is such an ugly code, is this the only way?
-    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HHmmssZZZZ"];
+    [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'SSS'Z'"];
     
     return [dateFormatter dateFromString: string];
 }
@@ -172,9 +173,10 @@ extern BOOL isNull(id value)
 -(NSString*)JSONObjectFromNSDate:(NSDate*)date
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZZ"];
+    [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'SSS'Z'"];
     
     return [dateFormatter stringFromDate:date];
 }
+
 
 @end
